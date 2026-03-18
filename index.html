@@ -388,16 +388,16 @@
 
 <!-- SPLASH -->
 <div id="splash">
-  <h1>⚡ CLICKER</h1>
-  <p>multiplayer - kupka -[UPD]</p>
-  <input id="nameInput" type="text" maxlength="16" placeholder="Twoja nazwa gracza" autocomplete="off" />
-  <button id="startBtn">WCHODZĘ</button>
+  <h1>CLICKER hubert edycjon</h1>
+  <p>multiplayer - kupka - [UPD]</p>
+  <input id="nameInput" type="text" maxlength="20" placeholder="Twoja nazwa gracza" autocomplete="off" />
+  <button id="startBtn">szacunek</button>
 </div>
 
 <!-- GAME -->
 <div id="game">
   <header>
-    <div class="logo">⚡ CLICKER</div>
+    <div class="logo">CLICKER hubert edycjon</div>
     <div id="playerTag">GRACZ: —</div>
   </header>
 
@@ -498,7 +498,7 @@ document.getElementById("nameInput").addEventListener("keydown", e => {
 
 function startGame() {
   const raw = document.getElementById("nameInput").value.trim();
-  if (!raw) { toast("Wpisz nazwę! 😤"); return; }
+  if (!raw) { toast("Wpisz nazwę"); return; }
   playerName = raw.slice(0, 16);
 
   // Zapisz nazwę do localStorage
