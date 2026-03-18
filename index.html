@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Multiplayer Clicker</title>
+<style>
+body{
+font-family: Arial;
+text-align:center;
+background:#111;
+color:white;
+}
+
+button{
+font-size:40px;
+padding:30px;
+margin:20px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Multiplayer Clicker</h1>
+
+<h2 id="score">0</h2>
+
+<button onclick="clickButton()">KLIK</button>
+
+<h3>Leaderboard</h3>
+<div id="players"></div>
+
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCKVA4Q1CQWFkLGBo5HretmpLKxb-GI3eA",
+  authDomain: "clicker-80232.firebaseapp.com",
+  projectId: "clicker-80232",
+  storageBucket: "clicker-80232.firebasestorage.app",
+  messagingSenderId: "943359414711",
+  appId: "1:943359414711:web:a03d7d0eda4d0ea97c5832"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+let player = localStorage.getItem("player");
+
+if(!player){
+player = "player_" + Math.floor(Math.random()*100000);
+localStorage.setItem("player", player);
+}
+
+let score = 0;
+
+// Odczyt wyniku
+onValue(ref(db, "players/" + player), (snapshot) => {
+score = snapshot.val() || 0;
+document.getElementById("score").innerText = score;
+});
+
+// Klikanie (NAPRAWIONE)
+window.clickButton = function(){
+score++;
+set(ref(db, "players/" + player), score);
+};
+
+// Ranking
+onValue(ref(db, "players"), (snapshot) => {
+let data = snapshot.val();
+let html = "";
+
+for(let p in data){
+html += p + " : " + data[p] + "<br>";
+}
+
+document.getElementById("players").innerHTML = html;
+});
+
+</script>
+
+</body>
+</html>
