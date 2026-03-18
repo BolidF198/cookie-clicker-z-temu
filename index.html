@@ -32,9 +32,7 @@ button{
 <body>
 
 <h1>🔥 Multiplayer Clicker</h1>
-
 <h2>Kasa: <span id="score">0</span></h2>
-
 <button onclick="clickButton()">KLIK 💥</button>
 
 <div id="shop">
@@ -51,22 +49,23 @@ button{
 <h3>🏆 Ranking</h3>
 <div id="players"></div>
 
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
-<script>
+// Twoje dane Firebase
 const firebaseConfig = {
-  apiKey: "AIzaSyCKVA4Q1CQWFkLGBo5HretmpLKxb-GI3eA",
-  authDomain: "clicker-80232.firebaseapp.com",
-  projectId: "clicker-80232",
-  storageBucket: "clicker-80232.firebasestorage.app",
-  messagingSenderId: "943359414711",
-  appId: "1:943359414711:web:a03d7d0eda4d0ea97c5832"
+  apiKey: "TU",
+  authDomain: "TU",
+  databaseURL: "TU",
+  projectId: "TU",
+  storageBucket: "TU",
+  messagingSenderId: "TU",
+  appId: "TU"
 };
 
-// Inicjalizacja Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
 // ID gracza
 let player = localStorage.getItem("player");
@@ -81,18 +80,18 @@ let boost = 1;
 let auto = 0;
 
 // Odczyt danych gracza
-firebase.database().ref("players/" + player).on("value", snap => {
-    const data = snap.val() || {};
+onValue(ref(db, "players/" + player), (snapshot)=>{
+    const data = snapshot.val() || {};
     score = data.score || 0;
     boost = data.boost || 1;
     auto = data.auto || 0;
     document.getElementById("score").innerText = score;
 });
 
-// Funkcja kliknięcia
-function clickButton(){
+// Kliknięcie
+window.clickButton = function(){
     score += boost;
-    firebase.database().ref("players/" + player).set({
+    set(ref(db, "players/" + player), {
         score: score,
         boost: boost,
         auto: auto
@@ -103,7 +102,7 @@ function clickButton(){
 setInterval(()=>{
     if(auto > 0){
         score += auto;
-        firebase.database().ref("players/" + player).set({
+        set(ref(db, "players/" + player), {
             score: score,
             boost: boost,
             auto: auto
@@ -112,33 +111,25 @@ setInterval(()=>{
 }, 1000);
 
 // Sklep
-function buyAuto(){
+window.buyAuto = function(){
     if(score >= 50){
         score -= 50;
         auto += 1;
-        firebase.database().ref("players/" + player).set({
-            score: score,
-            boost: boost,
-            auto: auto
-        });
+        set(ref(db, "players/" + player), {score, boost, auto});
     } else alert("Nie masz kasy 😎");
 }
 
-function buyBoost(){
+window.buyBoost = function(){
     if(score >= 100){
         score -= 100;
         boost += 1;
-        firebase.database().ref("players/" + player).set({
-            score: score,
-            boost: boost,
-            auto: auto
-        });
+        set(ref(db, "players/" + player), {score, boost, auto});
     } else alert("Nie masz kasy 😎");
 }
 
 // Ranking
-firebase.database().ref("players").on("value", snap => {
-    const data = snap.val() || {};
+onValue(ref(db, "players"), (snapshot)=>{
+    const data = snapshot.val() || {};
     let html = "";
     for(let p in data){
         html += p + " : " + (data[p].score || 0) + "<br>";
