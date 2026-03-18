@@ -4,39 +4,57 @@
 <title>Multiplayer Clicker</title>
 <style>
 body{
-font-family: Arial;
-text-align:center;
-background:#111;
-color:white;
+    font-family: Arial;
+    text-align:center;
+    background:#111;
+    color:white;
 }
 
 button{
-font-size:40px;
-padding:30px;
-margin:20px;
+    font-size:30px;
+    padding:20px;
+    margin:20px;
+    cursor:pointer;
+}
+
+#shop{
+    margin-top:20px;
+}
+
+.shop-item{
+    border:1px solid white;
+    padding:10px;
+    margin:10px;
+    display:inline-block;
 }
 </style>
 </head>
-
 <body>
 
-<h1>Multiplayer Clicker</h1>
+<h1>🔥 Multiplayer Clicker</h1>
 
-<h2 id="score">0</h2>
+<h2>Kasa: <span id="score">0</span></h2>
 
-<button onclick="clickButton()">KLIK</button>
+<button onclick="clickButton()">KLIK 💥</button>
 
-<h3>Leaderboard</h3>
+<div id="shop">
+    <div class="shop-item">
+        <p>Auto Clicker (+1/s)</p>
+        <button onclick="buyAuto()">Kup 50</button>
+    </div>
+    <div class="shop-item">
+        <p>Boost kliknięcia (+1)</p>
+        <button onclick="buyBoost()">Kup 100</button>
+    </div>
+</div>
+
+<h3>🏆 Ranking</h3>
 <div id="players"></div>
 
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
 
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-
+<script>
 const firebaseConfig = {
   apiKey: "AIzaSyCKVA4Q1CQWFkLGBo5HretmpLKxb-GI3eA",
   authDomain: "clicker-80232.firebaseapp.com",
@@ -46,42 +64,87 @@ const firebaseConfig = {
   appId: "1:943359414711:web:a03d7d0eda4d0ea97c5832"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+// Inicjalizacja Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
+// ID gracza
 let player = localStorage.getItem("player");
-
 if(!player){
-player = "player_" + Math.floor(Math.random()*100000);
-localStorage.setItem("player", player);
+    player = "player_" + Math.floor(Math.random()*100000);
+    localStorage.setItem("player", player);
 }
 
+// Stan gracza
 let score = 0;
+let boost = 1;
+let auto = 0;
 
-// Odczyt wyniku
-onValue(ref(db, "players/" + player), (snapshot) => {
-score = snapshot.val() || 0;
-document.getElementById("score").innerText = score;
+// Odczyt danych gracza
+firebase.database().ref("players/" + player).on("value", snap => {
+    const data = snap.val() || {};
+    score = data.score || 0;
+    boost = data.boost || 1;
+    auto = data.auto || 0;
+    document.getElementById("score").innerText = score;
 });
 
-// Klikanie (NAPRAWIONE)
-window.clickButton = function(){
-score++;
-set(ref(db, "players/" + player), score);
-};
+// Funkcja kliknięcia
+function clickButton(){
+    score += boost;
+    firebase.database().ref("players/" + player).set({
+        score: score,
+        boost: boost,
+        auto: auto
+    });
+}
+
+// Auto-clicker
+setInterval(()=>{
+    if(auto > 0){
+        score += auto;
+        firebase.database().ref("players/" + player).set({
+            score: score,
+            boost: boost,
+            auto: auto
+        });
+    }
+}, 1000);
+
+// Sklep
+function buyAuto(){
+    if(score >= 50){
+        score -= 50;
+        auto += 1;
+        firebase.database().ref("players/" + player).set({
+            score: score,
+            boost: boost,
+            auto: auto
+        });
+    } else alert("Nie masz kasy 😎");
+}
+
+function buyBoost(){
+    if(score >= 100){
+        score -= 100;
+        boost += 1;
+        firebase.database().ref("players/" + player).set({
+            score: score,
+            boost: boost,
+            auto: auto
+        });
+    } else alert("Nie masz kasy 😎");
+}
 
 // Ranking
-onValue(ref(db, "players"), (snapshot) => {
-let data = snapshot.val();
-let html = "";
-
-for(let p in data){
-html += p + " : " + data[p] + "<br>";
-}
-
-document.getElementById("players").innerHTML = html;
+firebase.database().ref("players").on("value", snap => {
+    const data = snap.val() || {};
+    let html = "";
+    for(let p in data){
+        html += p + " : " + (data[p].score || 0) + "<br>";
+    }
+    document.getElementById("players").innerHTML = html;
 });
-
 </script>
 
 </body>
