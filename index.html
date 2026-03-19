@@ -36,7 +36,6 @@
     z-index: 100;
     gap: 24px;
   }
-
   #splash h1 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(48px, 10vw, 96px);
@@ -45,14 +44,7 @@
     text-shadow: 0 0 40px rgba(240,192,64,0.4);
     line-height: 1;
   }
-
-  #splash p {
-    color: var(--muted);
-    font-size: 13px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
-
+  #splash p { color: var(--muted); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; }
   #nameInput {
     background: var(--surface);
     border: 2px solid var(--border);
@@ -68,7 +60,6 @@
   }
   #nameInput:focus { border-color: var(--accent); }
   #nameInput::placeholder { color: var(--muted); font-size: 14px; }
-
   #startBtn {
     background: var(--accent);
     color: #000;
@@ -79,12 +70,8 @@
     padding: 14px 48px;
     cursor: pointer;
     transition: transform 0.1s, box-shadow 0.2s;
-    box-shadow: 0 0 0 rgba(240,192,64,0);
   }
-  #startBtn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(240,192,64,0.35);
-  }
+  #startBtn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(240,192,64,0.35); }
   #startBtn:active { transform: scale(0.97); }
 
   /* ── GAME ── */
@@ -96,20 +83,23 @@
     justify-content: space-between;
     padding: 16px 32px;
     border-bottom: 1px solid var(--border);
+    gap: 12px;
   }
-
-  header .logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    letter-spacing: 3px;
-    color: var(--accent);
-  }
-
-  #playerTag {
-    font-size: 12px;
+  header .logo { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 3px; color: var(--accent); }
+  #playerTag { font-size: 12px; color: var(--muted); letter-spacing: 2px; flex: 1; text-align: center; }
+  #settingsToggle {
+    background: transparent;
+    border: 1px solid var(--border);
     color: var(--muted);
-    letter-spacing: 2px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    padding: 6px 12px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: border-color 0.2s, color 0.2s;
+    white-space: nowrap;
   }
+  #settingsToggle:hover { border-color: var(--accent); color: var(--accent); }
 
   .main-grid {
     display: grid;
@@ -118,7 +108,7 @@
     height: calc(100vh - 61px);
   }
 
-  /* ── LEFT PANEL ── */
+  /* ── LEFT ── */
   .left {
     display: flex;
     flex-direction: column;
@@ -128,7 +118,6 @@
     padding: 32px;
     border-right: 1px solid var(--border);
   }
-
   #scoreDisplay {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(72px, 12vw, 128px);
@@ -137,20 +126,11 @@
     text-shadow: 0 0 60px rgba(240,192,64,0.25);
     transition: transform 0.05s;
   }
-
   #scoreDisplay.pop { transform: scale(1.04); }
-
-  .score-label {
-    font-size: 11px;
-    letter-spacing: 4px;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-top: -20px;
-  }
+  .score-label { font-size: 11px; letter-spacing: 4px; color: var(--muted); text-transform: uppercase; margin-top: -20px; }
 
   #clickBtn {
-    width: 180px;
-    height: 180px;
+    width: 180px; height: 180px;
     border-radius: 50%;
     background: radial-gradient(circle at 35% 35%, #f5d060, var(--accent2));
     border: none;
@@ -160,58 +140,21 @@
     transition: transform 0.08s, box-shadow 0.1s;
     user-select: none;
     position: relative;
+    overflow: hidden;
+    padding: 0;
   }
+  #clickBtn img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; pointer-events: none; }
+  #clickBtn:hover { box-shadow: 0 0 40px rgba(240,192,64,0.3), inset 0 -6px 0 rgba(0,0,0,0.3); }
+  #clickBtn:active { transform: scale(0.92) translateY(4px); box-shadow: 0 0 20px rgba(240,192,64,0.2), inset 0 -2px 0 rgba(0,0,0,0.3); }
 
-  #clickBtn:hover {
-    box-shadow: 0 0 40px rgba(240,192,64,0.3), inset 0 -6px 0 rgba(0,0,0,0.3);
-  }
-
-  #clickBtn:active {
-    transform: scale(0.92) translateY(4px);
-    box-shadow: 0 0 20px rgba(240,192,64,0.2), inset 0 -2px 0 rgba(0,0,0,0.3);
-  }
-
-  .stats-row {
-    display: flex;
-    gap: 32px;
-  }
-
-  .stat {
-    text-align: center;
-  }
-
-  .stat-val {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 32px;
-    color: var(--text);
-  }
-
-  .stat-lbl {
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-  }
+  .stats-row { display: flex; gap: 32px; }
+  .stat { text-align: center; }
+  .stat-val { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--text); }
+  .stat-lbl { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
 
   /* ── SHOP ── */
-  .shop {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 8px;
-    width: 100%;
-    max-width: 340px;
-  }
-
-  .shop-title {
-    font-size: 11px;
-    letter-spacing: 4px;
-    color: var(--muted);
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 4px;
-  }
-
+  .shop { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; width: 100%; max-width: 380px; }
+  .shop-title { font-size: 11px; letter-spacing: 4px; color: var(--muted); text-transform: uppercase; text-align: center; margin-bottom: 4px; }
   .item {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -219,23 +162,28 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
+    gap: 10px;
     transition: border-color 0.2s;
   }
-
   .item:hover { border-color: #444460; }
-
   .item-info { flex: 1; }
   .item-name { font-size: 13px; font-weight: 700; }
   .item-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .item-count { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--accent); min-width: 28px; text-align: center; }
 
-  .item-count {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    color: var(--accent);
-    min-width: 28px;
+  .qty-input {
+    width: 52px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    padding: 5px 6px;
     text-align: center;
+    outline: none;
+    transition: border-color 0.2s;
   }
+  .qty-input:focus { border-color: var(--accent); }
 
   .buy-btn {
     background: transparent;
@@ -243,23 +191,19 @@
     color: var(--accent);
     font-family: 'Space Mono', monospace;
     font-size: 11px;
-    padding: 6px 12px;
+    padding: 6px 10px;
     cursor: pointer;
     letter-spacing: 1px;
     transition: background 0.15s, color 0.15s;
     white-space: nowrap;
+    min-width: 80px;
+    text-align: center;
   }
-
   .buy-btn:hover { background: var(--accent); color: #000; }
   .buy-btn:active { transform: scale(0.96); }
 
-  /* ── RIGHT PANEL ── */
-  .right {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-
+  /* ── RIGHT ── */
+  .right { display: flex; flex-direction: column; overflow: hidden; }
   .panel-header {
     padding: 20px 24px 16px;
     border-bottom: 1px solid var(--border);
@@ -271,94 +215,28 @@
     align-items: center;
     gap: 8px;
   }
-
-  .live-dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: #40c060;
-    animation: pulse 1.5s infinite;
-    flex-shrink: 0;
-  }
-
-  @keyframes pulse {
-    0%,100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-
-  #rankingList {
-    flex: 1;
-    overflow-y: auto;
-    padding: 12px 0;
-  }
-
+  .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #40c060; animation: pulse 1.5s infinite; flex-shrink: 0; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+  #rankingList { flex: 1; overflow-y: auto; padding: 12px 0; }
   #rankingList::-webkit-scrollbar { width: 4px; }
   #rankingList::-webkit-scrollbar-track { background: transparent; }
   #rankingList::-webkit-scrollbar-thumb { background: var(--border); }
 
-  .rank-row {
-    display: flex;
-    align-items: center;
-    padding: 10px 24px;
-    gap: 14px;
-    transition: background 0.15s;
-    border-bottom: 1px solid rgba(255,255,255,0.03);
-  }
-
+  .rank-row { display: flex; align-items: center; padding: 10px 24px; gap: 14px; transition: background 0.15s; border-bottom: 1px solid rgba(255,255,255,0.03); }
   .rank-row:hover { background: rgba(255,255,255,0.02); }
   .rank-row.me { background: rgba(240,192,64,0.06); }
-
-  .rank-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    color: var(--muted);
-    min-width: 24px;
-    text-align: center;
-  }
-
+  .rank-num { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--muted); min-width: 24px; text-align: center; }
   .rank-num.gold { color: #f0c040; }
   .rank-num.silver { color: #b0b8c8; }
   .rank-num.bronze { color: #c08050; }
-
-  .rank-name {
-    flex: 1;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
+  .rank-name { flex: 1; font-size: 13px; font-weight: 700; letter-spacing: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .rank-name.me { color: var(--accent); }
-
-  .rank-score {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    color: var(--text);
-  }
-
-  .rank-auto {
-    font-size: 10px;
-    color: var(--muted);
-    min-width: 36px;
-    text-align: right;
-  }
+  .rank-score { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--text); }
+  .rank-auto { font-size: 10px; color: var(--muted); min-width: 36px; text-align: right; }
 
   /* ── FLOATERS ── */
-  .floater {
-    position: fixed;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    color: var(--accent);
-    pointer-events: none;
-    animation: floatUp 0.8s forwards;
-    z-index: 999;
-  }
-
-  @keyframes floatUp {
-    0%   { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-80px); opacity: 0; }
-  }
+  .floater { position: fixed; font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--accent); pointer-events: none; animation: floatUp 0.8s forwards; z-index: 999; }
+  @keyframes floatUp { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-80px); opacity: 0; } }
 
   /* ── TOAST ── */
   #toast {
@@ -371,10 +249,31 @@
     font-size: 13px;
     letter-spacing: 1px;
     transition: transform 0.3s;
-    z-index: 200;
+    z-index: 500;
   }
-
   #toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ── SETTINGS ── */
+  #settingsPanel {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 300;
+    align-items: center;
+    justify-content: center;
+  }
+  #settingsPanel.open { display: flex; }
+  .settings-box { background: var(--surface); border: 1px solid var(--border); padding: 32px; width: 340px; display: flex; flex-direction: column; gap: 16px; }
+  .settings-title { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 3px; color: var(--accent); }
+  .settings-label { font-size: 11px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: -8px; }
+  .settings-file { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text); cursor: pointer; }
+  .settings-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'Space Mono', monospace; font-size: 11px; padding: 8px; cursor: pointer; letter-spacing: 1px; transition: border-color 0.2s, color 0.2s; }
+  .settings-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .settings-close { background: var(--accent); color: #000; border: none; font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; padding: 10px; cursor: pointer; }
+  .settings-close:hover { opacity: 0.85; }
+
+  /* ── BOUNCING LOGO ── */
+  #bounceLogo { position: fixed; width: 50px; z-index: 400; pointer-events: none; }
 
   @media (max-width: 700px) {
     .main-grid { grid-template-columns: 1fr; height: auto; }
@@ -399,10 +298,10 @@
   <header>
     <div class="logo">CLICKER hubert edycjon</div>
     <div id="playerTag">GRACZ: —</div>
+    <button id="settingsToggle">⚙ USTAWIENIA</button>
   </header>
 
   <div class="main-grid">
-    <!-- LEFT -->
     <div class="left">
       <div>
         <div id="scoreDisplay">0</div>
@@ -410,8 +309,8 @@
       </div>
 
       <button id="clickBtn">
-  <img src="man.jpg" alt="klik" />
-</button>
+        <img src="man.jpg" alt="klik" id="clickBtnImg" />
+      </button>
 
       <div class="stats-row">
         <div class="stat">
@@ -432,6 +331,7 @@
             <div class="item-desc">+1 punkt na sekundę</div>
           </div>
           <div class="item-count" id="autoCount">0</div>
+          <input type="number" id="autoQty" class="qty-input" value="1" min="1" />
           <button class="buy-btn" id="buyAutoBtn">50 PKT</button>
         </div>
         <div class="item">
@@ -440,12 +340,12 @@
             <div class="item-desc">+1 punkt za klik</div>
           </div>
           <div class="item-count" id="boostCount">1</div>
+          <input type="number" id="boostQty" class="qty-input" value="1" min="1" />
           <button class="buy-btn" id="buyBoostBtn">100 PKT</button>
         </div>
       </div>
     </div>
 
-    <!-- RIGHT -->
     <div class="right">
       <div class="panel-header">
         <div class="live-dot"></div>
@@ -456,11 +356,25 @@
   </div>
 </div>
 
+<!-- SETTINGS PANEL -->
+<div id="settingsPanel">
+  <div class="settings-box">
+    <div class="settings-title">⚙ USTAWIENIA</div>
+    <div class="settings-label">Obrazek przycisku</div>
+    <input type="file" id="btnImageInput" accept="image/*" class="settings-file" />
+    <div class="settings-label">Tło strony</div>
+    <input type="file" id="bgImageInput" accept="image/*" class="settings-file" />
+    <button class="settings-btn" id="resetImagesBtn">↺ RESETUJ DO DOMYŚLNYCH</button>
+    <button class="settings-close" id="settingsClose">ZAMKNIJ</button>
+  </div>
+</div>
+
 <div id="toast"></div>
+<img src="logo.jpg" id="bounceLogo" />
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getDatabase, ref, set, update, onValue, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+import { getDatabase, ref, set, update, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCKVA4Q1CQWFkLGBo5HretmpLKxb-GI3eA",
@@ -475,7 +389,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// ── Stan lokalny ──
 let playerId = localStorage.getItem("clickerPlayerId");
 if (!playerId) {
   playerId = "p_" + Math.random().toString(36).slice(2, 9);
@@ -486,11 +399,11 @@ let playerName = "";
 let score = 0;
 let boost = 1;
 let auto = 0;
-let initialized = false; // czy już załadowaliśmy dane z Firebase
+let initialized = false;
 
 const playerRef = ref(db, "players/" + playerId);
 
-// ── SPLASH → START ──
+// ── SPLASH ──
 document.getElementById("startBtn").addEventListener("click", startGame);
 document.getElementById("nameInput").addEventListener("keydown", e => {
   if (e.key === "Enter") startGame();
@@ -498,26 +411,20 @@ document.getElementById("nameInput").addEventListener("keydown", e => {
 
 function startGame() {
   const raw = document.getElementById("nameInput").value.trim();
-  if (!raw) { toast("Wpisz nazwę"); return; }
-  playerName = raw.slice(0, 16);
-
-  // Zapisz nazwę do localStorage
+  if (!raw) { toast("Wpisz nazwę! 😤"); return; }
+  playerName = raw.slice(0, 20);
   localStorage.setItem("clickerName", playerName);
-
   document.getElementById("splash").style.display = "none";
   document.getElementById("game").style.display = "block";
   document.getElementById("playerTag").textContent = "GRACZ: " + playerName.toUpperCase();
-
   initPlayer();
 }
 
-// Jeśli gracz już grał — wstaw jego nazwę
 const savedName = localStorage.getItem("clickerName");
 if (savedName) document.getElementById("nameInput").value = savedName;
 
-// ── INIT PLAYER ──
+// ── INIT ──
 function initPlayer() {
-  // Odczytaj raz dane z Firebase
   onValue(playerRef, (snap) => {
     if (!initialized) {
       initialized = true;
@@ -526,7 +433,6 @@ function initPlayer() {
         score = d.score || 0;
         boost = d.boost || 1;
         auto  = d.auto  || 0;
-        // Zaktualizuj nazwę (mogła się zmienić)
         update(playerRef, { name: playerName, lastSeen: Date.now() });
       } else {
         score = 0; boost = 1; auto = 0;
@@ -534,14 +440,33 @@ function initPlayer() {
       }
       updateUI();
     }
-    // Po inicjalizacji ignorujemy zdalne aktualizacje własnego gracza
-    // (żeby nie nadpisywały lokalnego stanu podczas klikania)
-  }, { onlyOnce: true });  // <-- kluczowe: odczyt tylko RAZ
+  }, { onlyOnce: true });
 }
 
-// ── SAVE do Firebase ──
 function save() {
   update(playerRef, { score, boost, auto, name: playerName, lastSeen: Date.now() });
+}
+
+// ── CENY (skalowane) ──
+function autoCost(qty) {
+  let total = 0;
+  for (let i = 0; i < qty; i++) total += Math.floor(50 * Math.pow(1.5, auto + i));
+  return total;
+}
+function boostCost(qty) {
+  let total = 0;
+  for (let i = 0; i < qty; i++) total += Math.floor(100 * Math.pow(1.5, (boost - 1) + i));
+  return total;
+}
+
+function getQty(id) {
+  return Math.max(1, parseInt(document.getElementById(id)?.value) || 1);
+}
+
+function formatNum(n) {
+  if (n >= 1000000) return (n / 1000000).toFixed(1) + "M";
+  if (n >= 1000) return (n / 1000).toFixed(1) + "K";
+  return n;
 }
 
 // ── UI ──
@@ -551,14 +476,15 @@ function updateUI() {
   document.getElementById("statAuto").textContent = auto;
   document.getElementById("autoCount").textContent = auto;
   document.getElementById("boostCount").textContent = boost;
+  document.getElementById("buyAutoBtn").textContent = formatNum(autoCost(getQty("autoQty"))) + " PKT";
+  document.getElementById("buyBoostBtn").textContent = formatNum(boostCost(getQty("boostQty"))) + " PKT";
 }
 
 // ── KLIK ──
 document.getElementById("clickBtn").addEventListener("click", (e) => {
   if (!initialized) return;
   score += boost;
-  updateUI();
-  save();
+  updateUI(); save();
   popScore();
   spawnFloater(e.clientX, e.clientY, "+" + boost);
 });
@@ -585,34 +511,40 @@ function spawnFloater(x, y, text) {
 setInterval(() => {
   if (!initialized || auto === 0) return;
   score += auto;
-  updateUI();
-  save();
+  updateUI(); save();
 }, 1000);
 
 // ── SKLEP ──
 document.getElementById("buyAutoBtn").addEventListener("click", () => {
   if (!initialized) return;
-  if (score >= 50) {
-    score -= 50; auto += 1;
+  const qty = getQty("autoQty");
+  const cost = autoCost(qty);
+  if (score >= cost) {
+    score -= cost; auto += qty;
     updateUI(); save();
-    toast("Auto Clicker kupiony! 🤖");
-  } else toast("Brakuje " + (50 - score) + " punktów 😤");
+    toast("Kupiono " + qty + "x Auto Clicker! 🤖");
+  } else toast("Brakuje " + formatNum(cost - score) + " punktów 😤");
 });
 
 document.getElementById("buyBoostBtn").addEventListener("click", () => {
   if (!initialized) return;
-  if (score >= 100) {
-    score -= 100; boost += 1;
+  const qty = getQty("boostQty");
+  const cost = boostCost(qty);
+  if (score >= cost) {
+    score -= cost; boost += qty;
     updateUI(); save();
-    toast("Boost aktywowany! ⚡");
-  } else toast("Brakuje " + (100 - score) + " punktów 😤");
+    toast("Kupiono " + qty + "x Boost! ⚡");
+  } else toast("Brakuje " + formatNum(cost - score) + " punktów 😤");
 });
+
+document.getElementById("autoQty").addEventListener("input", updateUI);
+document.getElementById("boostQty").addEventListener("input", updateUI);
 
 // ── RANKING LIVE ──
 onValue(ref(db, "players"), (snap) => {
   const data = snap.val() || {};
   const now = Date.now();
-  const ACTIVE_WINDOW = 5 * 60 * 1000; // 5 minut
+  const ACTIVE_WINDOW = 5 * 60 * 1000;
 
   let players = Object.entries(data)
     .map(([id, d]) => ({ id, ...d }))
@@ -632,19 +564,17 @@ onValue(ref(db, "players"), (snap) => {
     const isMe = p.id === playerId;
     const row = document.createElement("div");
     row.className = "rank-row" + (isMe ? " me" : "");
-
     const numClass = "rank-num" + (medals[i] ? " " + medals[i] : "");
     row.innerHTML = `
       <div class="${numClass}">${i + 1}</div>
       <div class="rank-name${isMe ? " me" : ""}">${escHtml(p.name || "???")}${isMe ? " ◀" : ""}</div>
       <div class="rank-auto">${p.auto > 0 ? "⚡" + p.auto + "/s" : ""}</div>
-      <div class="rank-score">${p.score || 0}</div>
+      <div class="rank-score">${formatNum(p.score || 0)}</div>
     `;
     list.appendChild(row);
   });
 });
 
-// ── UTILS ──
 function escHtml(s) {
   return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 }
@@ -657,45 +587,80 @@ function toast(msg) {
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.classList.remove("show"), 2500);
 }
+
+// ── USTAWIENIA ──
+const settingsPanel = document.getElementById("settingsPanel");
+
+document.getElementById("settingsToggle").addEventListener("click", () => {
+  settingsPanel.classList.add("open");
+});
+document.getElementById("settingsClose").addEventListener("click", () => {
+  settingsPanel.classList.remove("open");
+});
+settingsPanel.addEventListener("click", (e) => {
+  if (e.target === settingsPanel) settingsPanel.classList.remove("open");
+});
+
+document.getElementById("btnImageInput").addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    const url = ev.target.result;
+    document.getElementById("clickBtnImg").src = url;
+    localStorage.setItem("clickerBtnImg", url);
+  };
+  reader.readAsDataURL(file);
+});
+
+document.getElementById("bgImageInput").addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    applyBg(ev.target.result);
+    localStorage.setItem("clickerBgImg", ev.target.result);
+  };
+  reader.readAsDataURL(file);
+});
+
+function applyBg(url) {
+  document.body.style.backgroundImage = `url(${url})`;
+  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundPosition = "center";
+  document.body.style.backgroundAttachment = "fixed";
+}
+
+document.getElementById("resetImagesBtn").addEventListener("click", () => {
+  document.getElementById("clickBtnImg").src = "man.jpg";
+  document.body.style.backgroundImage = "";
+  localStorage.removeItem("clickerBtnImg");
+  localStorage.removeItem("clickerBgImg");
+  toast("Zresetowano! 🔄");
+});
+
+// przywróć po odświeżeniu
+const savedBtn = localStorage.getItem("clickerBtnImg");
+if (savedBtn) document.getElementById("clickBtnImg").src = savedBtn;
+const savedBg = localStorage.getItem("clickerBgImg");
+if (savedBg) applyBg(savedBg);
+
 </script>
-  <img src="logo.jpg" id="logo" style="position:fixed; width:50px; cursor:pointer;" />
-  <script>
-        const logo = document.getElementById("logo");
-        
-        let x = 10;
-        let y = 10;
-        let dx = 3;
-        let dy = 3;
 
-        function move() {
-            x += dx;
-            y += dy;
-
-            // Sprawdzanie kolizji z prawą i lewą krawędzią
-            // offsetWidth pobiera realną szerokość obrazka wyświetlaną na ekranie
-            if (x + logo.offsetWidth >= window.innerWidth || x <= 0) {
-                dx = -dx;
-                changeColor();
-            }
-
-            // Sprawdzanie kolizji z górną i dolną krawędzią
-            if (y + logo.offsetHeight >= window.innerHeight || y <= 0) {
-                dy = -dy;
-                changeColor();
-            }
-
-            logo.style.left = x + "px";
-            logo.style.top = y + "px";
-        }
-
-        // Odświeżanie co 10ms (100 klatek na sekundę)
-        setInterval(move, 10);
-
-        // Opcjonalne: dopasowanie pozycji przy zmianie rozmiaru okna
-        window.onresize = () => {
-            x = 0;
-            y = 0;
-        };
+<!-- BOUNCING LOGO -->
+<script>
+  const logo = document.getElementById("bounceLogo");
+  let x = 10, y = 10, dx = 3, dy = 3;
+  function move() {
+    x += dx; y += dy;
+    if (x + logo.offsetWidth >= window.innerWidth || x <= 0) dx = -dx;
+    if (y + logo.offsetHeight >= window.innerHeight || y <= 0) dy = -dy;
+    logo.style.left = x + "px";
+    logo.style.top  = y + "px";
+  }
+  setInterval(move, 10);
+  window.onresize = () => { x = 0; y = 0; };
 </script>
+
 </body>
 </html>
